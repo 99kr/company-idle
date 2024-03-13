@@ -24,6 +24,7 @@ specifiers:
   tauri-plugin-sql-api: github:tauri-apps/tauri-plugin-sql#v1
   typescript: ^5.0.2
   vite: ^5.0.0
+  zustand: ^4.5.2
 
 dependencies:
   '@heroicons/react': 2.1.1_react@18.2.0
@@ -39,6 +40,7 @@ dependencies:
   tailwind-merge: 2.2.1
   tailwindcss-animate: 1.0.7_tailwindcss@3.4.1
   tauri-plugin-sql-api: github.com/tauri-apps/tauri-plugin-sql/a31253b6a3da1f97a8a815747761f7ab6c21420a
+  zustand: 4.5.2_mqc7q2iaku6rivwvogsthwjaly
 
 devDependencies:
   '@tauri-apps/cli': 1.5.11
@@ -2005,6 +2007,14 @@ packages:
       picocolors: 1.0.0
     dev: true
 
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -2075,6 +2085,26 @@ packages:
     resolution: {integrity: sha512-pIXzoImaqmfOrL7teGUBt/T7ZDnyeGBWyXQBvOVhLkWLN37GXv8NMLK406UY6dS51JfcQHsmcW5cJ441bHg6Lg==}
     engines: {node: '>= 14'}
     hasBin: true
+
+  /zustand/4.5.2_mqc7q2iaku6rivwvogsthwjaly:
+    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0.6'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.2.65
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false
 
   github.com/tauri-apps/tauri-plugin-sql/a31253b6a3da1f97a8a815747761f7ab6c21420a:
     resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-sql/tar.gz/a31253b6a3da1f97a8a815747761f7ab6c21420a}

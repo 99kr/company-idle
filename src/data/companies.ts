@@ -1,12 +1,20 @@
-export const companies = [
+export type Company = {
+	type: "lemonade-stand" | "newspaper" | "car-wash" | "pizza-delivery" | "donut-shop";
+	title: string;
+	description: string;
+	img: string;
+	cost: number;
+	revenue: number;
+};
+
+export const companies: Company[] = [
 	{
 		type: "lemonade-stand",
 		title: "Lemonade Stand",
 		description: "Stand on the street and sell Lemonade",
 		img: "/companies/lemonade-stand.jpg",
 		cost: 100,
-		revenue: 5,
-		time: 1000,
+		revenue: 2,
 	},
 	{
 		type: "newspaper",
@@ -15,8 +23,8 @@ export const companies = [
 		img: "/companies/newspaper.jpg",
 		cost: 200,
 		revenue: 60,
-		time: 10000,
 	},
+	/*
 	{
 		type: "car-wash",
 		title: "Car Wash",
@@ -43,7 +51,7 @@ export const companies = [
 		cost: 103680,
 		revenue: 207360,
 		time: 720000,
-	},
-] as const;
+	},*/
+];
 
-export type CompanyType = (typeof companies)[number]["type"];
+export type CompanyType = Company["type"];

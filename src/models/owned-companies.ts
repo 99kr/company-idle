@@ -1,3 +1,3 @@
 export type OwnedCompanies = {
-	name: string;
+	business: string;
 };

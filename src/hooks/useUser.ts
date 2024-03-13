@@ -11,8 +11,6 @@ export default function useOwnedCompanies() {
 			const _user = await db.select<User[]>("SELECT * FROM user LIMIT 1");
 
 			setUser(_user?.[0] ?? null);
-
-			db.close();
 		})();
 	}, []);
 

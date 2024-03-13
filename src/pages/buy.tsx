@@ -1,18 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { companies } from "@/data/companies";
-import useOwnedCompanies from "@/hooks/useOwnedCompanies";
+import { Company, companies } from "@/data/companies";
 import { cn, formatNumber } from "@/lib/utils";
+import { useCompanyStore } from "@/stores/company";
+import { useUserStore } from "@/stores/user";
 
 export default function Buy() {
-	const ownedCompanies = useOwnedCompanies();
+	const companyStore = useCompanyStore();
+	const userStore = useUserStore();
 
-	if (!ownedCompanies) return null;
+	const handleBuy = (company: Company) => {
+		if (userStore.balance < company.cost) return;
+
+		companyStore.addCompany(company);
+		userStore.removeBalance(company.cost);
+	};
 
 	return (
-		<div className="grid grid-cols-3 gap-12">
+		<div className="grid grid-cols-3 gap-8">
 			{companies.map((company) => {
-				const isOwned = ownedCompanies.includes(company.type);
+				const isOwned = companyStore.companies.some((c) => c.type === company.type);
+				const isAffordable = userStore.balance >= company.cost;
+
 				return (
 					<Card key={company.type} className={cn("grid", isOwned && "opacity-50")}>
 						<CardHeader>
@@ -32,7 +41,11 @@ export default function Buy() {
 									You already own this company
 								</Button>
 							) : (
-								<Button variant="secondary" className="w-full">
+								<Button
+									variant={isAffordable ? "default" : "secondary"}
+									className="w-full"
+									onClick={() => handleBuy(company)}
+								>
 									Buy for ${formatNumber(company.cost)}
 								</Button>
 							)}

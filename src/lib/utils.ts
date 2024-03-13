@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 const formatter = Intl.NumberFormat("en", {
 	notation: "compact",
 	compactDisplay: "short",
-	maximumSignificantDigits: 4,
+	maximumSignificantDigits: 3,
 	minimumFractionDigits: 2,
 });
 

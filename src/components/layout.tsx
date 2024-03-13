@@ -5,10 +5,9 @@ import {
 	NavigationMenuItem,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import useUser from "@/hooks/useUser";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { WalletIcon } from "@heroicons/react/24/outline";
-import { formatNumber } from "@/lib/utils";
+import { useUserStore } from "@/stores/user";
 
 const routes = [
 	{ path: "/", name: "Home" },
@@ -18,7 +17,7 @@ const routes = [
 
 export default function Layout() {
 	const location = useLocation();
-	const user = useUser();
+	const userStore = useUserStore();
 
 	return (
 		<div className="space-y-6">
@@ -37,12 +36,10 @@ export default function Layout() {
 					))}
 				</NavigationMenuList>
 
-				{user && (
-					<div className="border px-4 py-2 rounded-md flex gap-3 items-center">
-						<WalletIcon className="text-neutral-400 h-5 w-5" />
-						<p className="text-neutral-50 font-medium text-sm">${formatNumber(user.balance)}</p>
-					</div>
-				)}
+				<div className="border px-4 py-2 rounded-md flex gap-3 items-center">
+					<WalletIcon className="text-neutral-400 h-5 w-5" />
+					<p className="text-neutral-50 font-medium text-sm">${userStore.displayBalance()}</p>
+				</div>
 			</NavigationMenu>
 
 			<Outlet />

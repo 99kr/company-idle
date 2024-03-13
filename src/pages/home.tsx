@@ -1,20 +1,17 @@
-import useOwnedCompanies from "@/hooks/useOwnedCompanies";
+import { useCompanyStore } from "@/stores/company";
 
 export default function Home() {
-	const ownedCompanies = useOwnedCompanies();
-
-	console.log(ownedCompanies);
-
-	if (ownedCompanies === null) return null;
+	const companyStore = useCompanyStore();
 
 	return (
 		<div>
-			{ownedCompanies.length === 0 ? (
+			<p>Revenue/sec: ${companyStore.totalRevenue}</p>
+			{companyStore.companies.length === 0 ? (
 				<p>You don't own any companies yet.</p>
 			) : (
 				<ul>
-					{ownedCompanies.map((company) => (
-						<li key={company}>{company}</li>
+					{companyStore.companies.map((company) => (
+						<li key={company.type}>{company.title}</li>
 					))}
 				</ul>
 			)}
