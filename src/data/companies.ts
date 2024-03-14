@@ -5,6 +5,8 @@ export type Company = {
 	img: string;
 	cost: number;
 	revenue: number;
+	time: number;
+	lastPayout?: number;
 };
 
 export const companies: Company[] = [
@@ -15,6 +17,7 @@ export const companies: Company[] = [
 		img: "/companies/lemonade-stand.jpg",
 		cost: 100,
 		revenue: 2,
+		time: 1000,
 	},
 	{
 		type: "newspaper",
@@ -23,8 +26,8 @@ export const companies: Company[] = [
 		img: "/companies/newspaper.jpg",
 		cost: 200,
 		revenue: 60,
+		time: 5000,
 	},
-	/*
 	{
 		type: "car-wash",
 		title: "Car Wash",
@@ -32,7 +35,7 @@ export const companies: Company[] = [
 		img: "/companies/car-wash.jpg",
 		cost: 720,
 		revenue: 540,
-		time: 60000,
+		time: 10000,
 	},
 	{
 		type: "pizza-delivery",
@@ -41,7 +44,7 @@ export const companies: Company[] = [
 		img: "/companies/pizza-delivery.jpg",
 		cost: 8640,
 		revenue: 12960,
-		time: 360000,
+		time: 20000,
 	},
 	{
 		type: "donut-shop",
@@ -50,8 +53,8 @@ export const companies: Company[] = [
 		img: "/companies/donut-shop.jpg",
 		cost: 103680,
 		revenue: 207360,
-		time: 720000,
-	},*/
+		time: 30000,
+	},
 ];
 
 export type CompanyType = Company["type"];

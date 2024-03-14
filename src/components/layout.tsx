@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { WalletIcon } from "@heroicons/react/24/outline";
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "@/stores/user-store";
+import { Toaster } from "@/components/ui/sonner";
 
 const routes = [
 	{ path: "/", name: "Home" },
 	{ path: "/buy", name: "Buy Companies" },
-	{ path: "/upgrade", name: "Upgrade Companies" },
 ];
 
 export default function Layout() {
@@ -20,8 +20,8 @@ export default function Layout() {
 	const userStore = useUserStore();
 
 	return (
-		<div className="space-y-6">
-			<NavigationMenu className="!max-w-full justify-between">
+		<div>
+			<NavigationMenu className="!max-w-full justify-between sticky top-0 backdrop-blur py-4 bg-background/95">
 				<NavigationMenuList>
 					{routes.map((route) => (
 						<NavigationMenuItem key={route.name}>
@@ -42,7 +42,11 @@ export default function Layout() {
 				</div>
 			</NavigationMenu>
 
-			<Outlet />
+			<div className="mt-4">
+				<Outlet />
+			</div>
+
+			<Toaster />
 		</div>
 	);
 }
