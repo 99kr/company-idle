@@ -1,5 +1,7 @@
+export type CompanyType = "lemonade-stand" | "newspaper" | "car-wash" | "pizza-delivery" | "donut-shop";
+
 export type Company = {
-	type: "lemonade-stand" | "newspaper" | "car-wash" | "pizza-delivery" | "donut-shop";
+	type: CompanyType;
 	title: string;
 	description: string;
 	img: string;
@@ -56,5 +58,3 @@ export const companies: Company[] = [
 		time: 30000,
 	},
 ];
-
-export type CompanyType = Company["type"];

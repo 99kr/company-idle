@@ -1,4 +1,4 @@
-import { database } from "@/db";
+import { db } from "@/db";
 import { formatNumber } from "@/lib/utils";
 import { create } from "zustand";
 
@@ -27,13 +27,9 @@ export const useUserStore = create<UserStore>((set, get) => ({
 }));
 
 async function addBalance(amount: number) {
-	const db = await database();
-
 	await db.execute("UPDATE user SET balance = balance + $1 WHERE id = 1", [amount]);
 }
 
 async function removeBalance(amount: number) {
-	const db = await database();
-
 	await db.execute("UPDATE user SET balance = balance - $1 WHERE id = 1", [amount]);
 }

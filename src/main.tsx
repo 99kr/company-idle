@@ -7,21 +7,23 @@ import { BrowserRouter } from "react-router-dom";
 import defaults from "@/db/defaults";
 import { useUserStore } from "@/stores/user-store";
 import { useCompanyStore } from "@/stores/company-store";
-import { database } from "@/db";
 import { companies } from "@/data/companies";
 import { OwnedCompanies } from "@/models/owned-companies";
 import { User } from "@/models/user";
+import { db } from "@/db";
 
 const intervals = new Map<string, NodeJS.Timeout>();
 
 (async () => {
 	await defaults();
 
-	const db = await database();
 	const ownedCompanies = await db.select<OwnedCompanies[]>("SELECT business FROM owned_companies");
 	const user = await db.select<User[]>("SELECT balance FROM user WHERE id = 1 LIMIT 1");
 
-	useUserStore.getState().setBalance(user[0].balance);
+	const userStore = useUserStore.getState();
+	const companyStore = useCompanyStore.getState();
+
+	userStore.setBalance(user[0].balance);
 
 	const _companies = ownedCompanies.map((company) => companies.find((c) => c.type === company.business)!);
 
@@ -32,15 +34,14 @@ const intervals = new Map<string, NodeJS.Timeout>();
 			intervals.set(
 				company.type,
 				setInterval(() => {
-					//console.log("Adding revenue", company.title, company.revenue);
-					useUserStore.getState().addBalance(company.revenue);
-					useCompanyStore.getState().setLastPayout(company.type, Date.now());
+					userStore.addBalance(company.revenue);
+					companyStore.setLastPayout(company.type, Date.now());
 				}, company.time)
 			);
 		}
 	});
 
-	useCompanyStore.getState().setCompanies(_companies);
+	companyStore.setCompanies(_companies);
 })();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

@@ -1,5 +1,3 @@
 import Database from "tauri-plugin-sql-api";
 
-export function database() {
-	return Database.load("sqlite:company-idle.db");
-}
+export const db = await Database.load("sqlite:company-idle.db");

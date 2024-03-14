@@ -1,5 +1,5 @@
 import { Company, CompanyType } from "@/data/companies";
-import { database } from "@/db";
+import { db } from "@/db";
 import { create } from "zustand";
 
 type CompanyStore = {
@@ -36,15 +36,13 @@ export const useCompanyStore = create<CompanyStore>((set) => ({
 		addCompany(company);
 	},
 
-	setLastPayout: (company, time) => {
+	setLastPayout: (type, time) => {
 		set((state) => ({
-			companies: state.companies.map((c) => (c.type === company ? { ...c, lastPayout: time } : c)),
+			companies: state.companies.map((c) => (c.type === type ? { ...c, lastPayout: time } : c)),
 		}));
 	},
 }));
 
 async function addCompany(company: Company) {
-	const db = await database();
-
 	await db.execute("INSERT INTO owned_companies (business) VALUES ($1)", [company.type]);
 }
