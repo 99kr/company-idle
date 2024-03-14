@@ -17,7 +17,7 @@ const intervals = new Map<string, NodeJS.Timeout>();
 (async () => {
 	await defaults();
 
-	const ownedCompanies = await db.select<OwnedCompanies[]>("SELECT business FROM owned_companies");
+	const ownedCompanies = await db.select<OwnedCompanies[]>("SELECT business, payout_pool FROM owned_companies");
 	const user = await db.select<User[]>("SELECT balance FROM user WHERE id = 1 LIMIT 1");
 
 	const userStore = useUserStore.getState();
@@ -25,7 +25,10 @@ const intervals = new Map<string, NodeJS.Timeout>();
 
 	userStore.setBalance(user[0].balance);
 
-	const _companies = ownedCompanies.map((company) => companies.find((c) => c.type === company.business)!);
+	const _companies = ownedCompanies.map((company) => ({
+		...companies.find((c) => c.type === company.business)!,
+		payoutPool: company.payout_pool,
+	}));
 
 	useCompanyStore.subscribe((state) => {
 		for (const company of state.companies) {
@@ -34,8 +37,7 @@ const intervals = new Map<string, NodeJS.Timeout>();
 			intervals.set(
 				company.type,
 				setInterval(() => {
-					userStore.addBalance(company.revenue);
-					companyStore.setLastPayout(company.type, Date.now());
+					companyStore.addPayoutPool(company.type, company.revenue);
 				}, company.time)
 			);
 		}

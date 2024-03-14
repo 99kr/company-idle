@@ -9,6 +9,7 @@ export type Company = {
 	revenue: number;
 	time: number;
 	lastPayout?: number;
+	payoutPool?: number;
 };
 
 export const companies: Company[] = [

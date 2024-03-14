@@ -16,10 +16,21 @@ export default function Buy() {
 			return toast.error("Not enough money", {
 				description: (
 					<>
-						You need <b>${formatNumber(company.cost - userStore.balance)}</b> more to buy this company.
+						You need{" "}
+						<span className="text-red-400 font-semibold">
+							${formatNumber(company.cost - userStore.balance)}
+						</span>{" "}
+						more to buy this company.
 					</>
 				),
 			});
+
+		toast.success(
+			<>
+				You bought {company.title} for{" "}
+				<span className="text-green-400 font-semibold">${formatNumber(company.cost)}</span>!
+			</>
+		);
 
 		companyStore.addCompany(company);
 		userStore.removeBalance(company.cost);
